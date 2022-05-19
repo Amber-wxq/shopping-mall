@@ -1,6 +1,27 @@
+<<<<<<< HEAD
 devtools-main/
 vue-devtools--master/
 devtools-main.zip
 vue-devtools--master.zip
 app/node_modules/
 .vscode
+=======
+# Build and Release Folders
+bin-debug/
+bin-release/
+[Oo]bj/
+[Bb]in/
+
+# Other files and folders
+.settings/
+
+# Executables
+*.swf
+*.air
+*.ipa
+*.apk
+
+# Project files, i.e. `.project`, `.actionScriptProperties` and `.flexProperties`
+# should NOT be excluded as they contain compiler settings and other important
+# information for Eclipse / Flash Builder.
+>>>>>>> c240d7b8be0328bee448d0b0eb57540065babeb4
