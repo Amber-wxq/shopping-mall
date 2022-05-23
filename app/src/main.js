@@ -1,13 +1,16 @@
 import Vue from 'vue'
 import App from './App.vue'
 import router from '@/router'
-import TypeNav from '@/pages/Home/TypeNav'
+import TypeNav from '@/components/TypeNav'
 
+//注册仓库
+import store from '@/store'
+//全局组件
 Vue.component(TypeNav.name, TypeNav);
 //获取三级联动
-import { reqCategoryList } from '@/api';
-reqCategoryList();
+
 new Vue({
   render: h => h(App),
-  router
+  router,
+  store
 }).$mount('#app')
