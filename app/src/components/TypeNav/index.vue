@@ -4,21 +4,23 @@
                 <div @mouseleave="leaveIndex"> 
                     <h2 class="all">全部商品分类</h2>
                     <div class="sort">
-                        <div class="all-sort-list2">
+                        <div class="all-sort-list2" @click="goSearch">
                             <div class="item bo" v-for="(c1, index ) in categoryList" :key="c1.categoryId" >
                                 <h3 @mouseenter="changeIndex(index)" :class="{cur:currentIndex==index}">
-                                    <a href="">{{c1.categoryName}}</a>
+                                    <a href="#" :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{c1.categoryName}}</a>
                                 </h3>
                                 <!-- 二三级标签 -->
                                 <div class="item-list clearfix" :style="{display:currentIndex==index?'block':'none'}">
                                     <div class="subitem" v-for="(c2,index) in c1.categoryChild" :key="c2.categoryId">
                                         <dl class="fore">
                                             <dt>
-                                                <a href="">{{c2.categoryName}}</a>
+                                                <!-- 二级 -->
+                                                <a href="" :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{c2.categoryName}}</a>
                                             </dt>
                                             <dd>
                                                 <em v-for="(c3,index) in c2.categoryChild" :key="c3.categoryId">
-                                                    <a href="">{{c3.categoryName}}</a>
+                                                <!-- 三级 -->
+                                                    <a href="" :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{c3.categoryName}}</a>
                                                 </em>
                                             
                                             </dd>
@@ -68,6 +70,25 @@ export default {
         }) ,
         leaveIndex(){
             this.currentIndex=-1
+        },
+        goSearch(event){
+            let element=event.target;
+          
+            let {categoryname,category1id,category2id,category3id} =element.dataset;
+            
+            if(categoryname){
+                let location={name:"search"};
+                let query={categoryName:categoryname}
+                if(category1id){
+                    query.category1Id=category1id;
+                }else if(category2id){
+                    query.category2Id=category2id;
+                }else{
+                    query.category3Id=category3id;
+                }
+                location.query=query;
+                this.$router.push(location)
+            }
         }
     }
 
