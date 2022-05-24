@@ -1,6 +1,5 @@
 <template>
-   <div class="type-nav">
-      
+   <div class="type-nav">    
             <div class="container">
                 <div @mouseleave="leaveIndex"> 
                     <h2 class="all">全部商品分类</h2>
@@ -47,6 +46,7 @@
 
 <script>
 import { mapState } from 'vuex'
+import throttle from 'lodash/throttle'
 export default {
     name:"TypeNav",
     data(){
@@ -63,9 +63,9 @@ export default {
         })
     },
     methods:{
-       changeIndex(index){
+        changeIndex:throttle(function(index){
             this.currentIndex=index;
-        },
+        }) ,
         leaveIndex(){
             this.currentIndex=-1
         }
