@@ -61,8 +61,9 @@ export default new VueRouter({
             meta: { show: false }
         },
         {
-            path: '*',
-            component: Home
+            path: '/',
+            component: Home,
+            meta: { show: true }
         }
     ]
 })

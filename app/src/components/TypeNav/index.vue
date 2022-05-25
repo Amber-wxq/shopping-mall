@@ -1,9 +1,10 @@
 <template>
    <div class="type-nav">    
             <div class="container">
-                <div @mouseleave="leaveIndex"> 
+                <div @mouseleave="leaveIndex" @mouseenter="enterShow"> 
                     <h2 class="all">全部商品分类</h2>
-                    <div class="sort">
+                    <transition name="sort">
+                    <div class="sort" v-show="show">
                         <div class="all-sort-list2" @click="goSearch">
                             <div class="item bo" v-for="(c1, index ) in categoryList" :key="c1.categoryId" >
                                 <h3 @mouseenter="changeIndex(index)" :class="{cur:currentIndex==index}">
@@ -31,6 +32,7 @@
                             
                         </div>
                     </div>
+                    </transition>
                 </div>
                 <nav class="nav">
                     <a href="###">服装城</a>
@@ -53,11 +55,15 @@ export default {
     name:"TypeNav",
     data(){
         return{
-            currentIndex:-1
+            currentIndex:-1,
+            show:true,
         }
     },
     mounted(){
-        this.$store.dispatch('categoryList')
+        // this.$store.dispatch('categoryList');
+        if(this.$route.path!='/home'){
+            this.show=false
+        }
     },
     computed:{
         ...mapState({
@@ -69,7 +75,11 @@ export default {
             this.currentIndex=index;
         }) ,
         leaveIndex(){
-            this.currentIndex=-1
+            this.currentIndex=-1;
+             if(this.$route.path != '/home')
+            {
+                 this.show=false;
+            }
         },
         goSearch(event){
             let element=event.target;
@@ -89,6 +99,10 @@ export default {
                 location.query=query;
                 this.$router.push(location)
             }
+        },
+        enterShow(){
+            if(this.$route.path!='/home'){this.show=true}
+            
         }
     }
 
@@ -214,6 +228,15 @@ export default {
                         // }
                     }
                 }
+            }
+            .sort-enter{
+                height: 0px;
+            }
+            .sort-enter-to{
+                height: 461px;
+            }
+            .sort-enter-active{
+                transition: all .5s linear;
             }
         }
     }
