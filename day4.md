@@ -12,3 +12,6 @@
 
 
 3)合并params和query参数
+
+4)开发home首页
+轮播图  

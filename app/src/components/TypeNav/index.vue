@@ -8,7 +8,7 @@
                         <div class="all-sort-list2" @click="goSearch">
                             <div class="item bo" v-for="(c1, index ) in categoryList" :key="c1.categoryId" >
                                 <h3 @mouseenter="changeIndex(index)" :class="{cur:currentIndex==index}">
-                                    <a href="#" :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{c1.categoryName}}</a>
+                                    <a  :data-categoryName="c1.categoryName" :data-category1Id="c1.categoryId">{{c1.categoryName}}</a>
                                 </h3>
                                 <!-- 二三级标签 -->
                                 <div class="item-list clearfix" :style="{display:currentIndex==index?'block':'none'}">
@@ -16,12 +16,12 @@
                                         <dl class="fore">
                                             <dt>
                                                 <!-- 二级 -->
-                                                <a href="" :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{c2.categoryName}}</a>
+                                                <a  :data-categoryName="c2.categoryName" :data-category2Id="c2.categoryId">{{c2.categoryName}}</a>
                                             </dt>
                                             <dd>
                                                 <em v-for="(c3,index) in c2.categoryChild" :key="c3.categoryId">
                                                 <!-- 三级 -->
-                                                    <a href="" :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{c3.categoryName}}</a>
+                                                    <a  :data-categoryName="c3.categoryName" :data-category3Id="c3.categoryId">{{c3.categoryName}}</a>
                                                 </em>
                                             
                                             </dd>
@@ -61,7 +61,7 @@ export default {
     },
     mounted(){
         // this.$store.dispatch('categoryList');
-        if(this.$route.path!='/home'){
+        if((this.$route.path!=='/home')&&(this.$route.path!=='/')){
             this.show=false
         }
     },
@@ -76,7 +76,7 @@ export default {
         }) ,
         leaveIndex(){
             this.currentIndex=-1;
-             if(this.$route.path != '/home')
+             if(this.$route.path !== '/home')
             {
                  this.show=false;
             }
@@ -95,13 +95,20 @@ export default {
                     query.category2Id=category2id;
                 }else{
                     query.category3Id=category3id;
-                }
-                location.query=query;
-                this.$router.push(location)
+                } 
+              
+                 if(this.$route.params){
+                location.params=this.$route.params;
+                 location.query=query;
+
+                 this.$router.push(location)
             }
+            }
+         
+            
         },
         enterShow(){
-            if(this.$route.path!='/home'){this.show=true}
+            if(this.$route.path!=='/home'){this.show=true}
             
         }
     }
