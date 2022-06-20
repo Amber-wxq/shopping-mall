@@ -114,35 +114,13 @@
             </ul>
           </div>
           <!-- 分页器 -->
-          <div class="fr page">
-            <div class="sui-pagination clearfix">
-              <ul>
-                <li class="prev disabled">
-                  <a href="#">«上一页</a>
-                </li>
-                <li class="active">
-                  <a href="#">1</a>
-                </li>
-                <li>
-                  <a href="#">2</a>
-                </li>
-                <li>
-                  <a href="#">3</a>
-                </li>
-                <li>
-                  <a href="#">4</a>
-                </li>
-                <li>
-                  <a href="#">5</a>
-                </li>
-                <li class="dotted"><span>...</span></li>
-                <li class="next">
-                  <a href="#">下一页»</a>
-                </li>
-              </ul>
-              <div><span>共10页&nbsp;</span></div>
-            </div>
-          </div>
+          <Pagination
+            :pageNo="searchParams.pageNo"
+            :pageSize="searchParams.pageSize"
+            :total="total"
+            :continues="5"
+            @getPageNo="getPageNo"
+          />
         </div>
         <!--hotsale-->
         <div class="clearfix hot-sale">
@@ -236,7 +214,7 @@
 <script>
 import SearchSelector from "./SearchSelector";
 import ToolBar from "./Toolbar";
-import { mapGetters } from "vuex";
+import { mapGetters, mapState } from "vuex";
 export default {
   name: "",
   props: ["keyword", "k"],
@@ -252,7 +230,7 @@ export default {
         //默认是综合降序
         order: "1:desc",
         pageNo: 1,
-        pageSize: 10,
+        pageSize: 5,
         props: [],
         trademark: "",
       },
@@ -323,9 +301,16 @@ export default {
       this.searchParams.order = newOrder;
       this.getData();
     },
+    //分页器
+    getPageNo(pageNo) {
+      console.log(pageNo);
+      this.searchParams.pageNo = pageNo;
+      this.getData();
+    },
   },
   computed: {
     ...mapGetters(["goodsList"]),
+    ...mapState({ total: (state) => state.search.searchList.total }),
     isOne() {
       return this.searchParams.order.indexOf("1") != -1;
     },

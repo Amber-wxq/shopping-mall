@@ -3,6 +3,7 @@ import App from './App.vue'
 import router from '@/router'
 import TypeNav from '@/components/TypeNav'
 import Carousel from '@/components/Carousel'
+import Pagination from '@/components/Pagination'
 //引入mock
 import '@/mock/mockServer';
 //引入轮播图样式
@@ -13,6 +14,7 @@ import store from '@/store'
 //全局组件
 Vue.component(TypeNav.name, TypeNav);
 Vue.component(Carousel.name, Carousel);
+Vue.component(Pagination.name, Pagination);
 //获取三级联动
 
 new Vue({
