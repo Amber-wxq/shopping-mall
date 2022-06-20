@@ -7,6 +7,7 @@ import Carousel from '@/components/Carousel'
 import '@/mock/mockServer';
 //引入轮播图样式
 import 'swiper/css/swiper.css'
+import '../public/font/iconfont.css'
 //注册仓库
 import store from '@/store'
 //全局组件
@@ -17,5 +18,8 @@ Vue.component(Carousel.name, Carousel);
 new Vue({
   render: h => h(App),
   router,
-  store
+  store,
+  beforeCreate() {
+    Vue.prototype.$bus = this;
+  }
 }).$mount('#app')
